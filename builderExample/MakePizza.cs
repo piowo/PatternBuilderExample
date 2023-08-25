@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace builderExample
 {
@@ -10,36 +7,36 @@ namespace builderExample
     {
         public enum Sauce
         {
-            TOMATO, DANISH, BBQ
+            Tomato, Danish, Bbq
         }
 
-        private readonly bool thinCake;
-        private readonly int quantityOfCheese;
-        private readonly Sauce kindOfSauce;
-        private readonly bool withMeat;
-        private readonly bool withVegetables;
+        private readonly bool _thinCake;
+        private readonly int _quantityOfCheese;
+        private readonly Sauce _kindOfSauce;
+        private readonly bool _withMeat;
+        private readonly bool _withVegetables;
 
          public MakePizza(Builder builder)
          {
-                this.thinCake = builder.thinCake;
-                this.quantityOfCheese = builder.quantityOfCheese;
-                this.kindOfSauce = builder.kindOfSauce;
-                this.withMeat = builder.withMeat;
-                this.withVegetables = builder.withVegetables;
+                this._thinCake = builder.ThinCake;
+                this._quantityOfCheese = builder.QuantityOfCheese;
+                this._kindOfSauce = builder.KindOfSauce;
+                this._withMeat = builder.WithMeat;
+                this._withVegetables = builder.WithVegetables;
          }
 
-        private String getKindOfSauce(Sauce sauce)
+        private String GetKindOfSauce(Sauce sauce)
         {
             StringBuilder nameOfSauce = new StringBuilder();
             switch (sauce)
             {
-                case Sauce.TOMATO:
+                case Sauce.Tomato:
                     nameOfSauce.Append("pomidorowy");
                     break;
-                case Sauce.BBQ:
+                case Sauce.Bbq:
                     nameOfSauce.Append("BBQ");
                     break;
-                case Sauce.DANISH:
+                case Sauce.Danish:
                     nameOfSauce.Append("duński");
                     break;
             }
@@ -50,49 +47,49 @@ namespace builderExample
         public override String ToString()
         {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("na " + (thinCake ? "cienkim" : "grubym") + " cieście\n");
-            stringBuilder.Append("ilość sera  : " + quantityOfCheese + "\n");
-            stringBuilder.Append("rodzaj sosu : " + getKindOfSauce(kindOfSauce) + "\n");
+            stringBuilder.Append("na " + (_thinCake ? "cienkim" : "grubym") + " cieście\n");
+            stringBuilder.Append("ilość sera  : " + _quantityOfCheese + "\n");
+            stringBuilder.Append("rodzaj sosu : " + GetKindOfSauce(_kindOfSauce) + "\n");
             stringBuilder.Append("dodatki : \n" +
-                    "mięso: " + (withMeat ? "tak" : "nie") + "\n" +
-                    "warzywa: " + (withVegetables ? "tak" : "nie") + "\n"
+                    "mięso: " + (_withMeat ? "tak" : "nie") + "\n" +
+                    "warzywa: " + (_withVegetables ? "tak" : "nie") + "\n"
                     );
             return stringBuilder.ToString();
         }
 
         public class Builder
         {
-            public bool thinCake { get; private set; }
-            public int quantityOfCheese { get; private set; }
-            public Sauce kindOfSauce { get; private set; } = Sauce.TOMATO;
-            public bool withMeat { get; private set; } = true;
-            public bool withVegetables { get; private set; } = true;
+            public bool ThinCake { get; private set; }
+            public int QuantityOfCheese { get; private set; }
+            public Sauce KindOfSauce { get; private set; } = Sauce.Tomato;
+            public bool WithMeat { get; private set; } = true;
+            public bool WithVegetables { get; private set; } = true;
 
             public Builder(bool thinCake, int quantityOfCheese)
             {
-                this.thinCake = thinCake;
-                this.quantityOfCheese = quantityOfCheese;
+                this.ThinCake = thinCake;
+                this.QuantityOfCheese = quantityOfCheese;
             }
 
-            public Builder setKindOfSauce(Sauce sauce)
+            public Builder SetKindOfSauce(Sauce sauce)
             {
-                this.kindOfSauce = sauce;
+                this.KindOfSauce = sauce;
                 return this;
             }
 
-            public Builder setWithMeat(bool withMeat)
+            public Builder SetWithMeat(bool withMeat)
             {
-                this.withMeat = withMeat;
+                this.WithMeat = withMeat;
                 return this;
             }
 
-            public Builder setWithVegetables(bool withVegetables)
+            public Builder SetWithVegetables(bool withVegetables)
             {
-                this.withVegetables = withVegetables;
+                this.WithVegetables = withVegetables;
                 return this;
             }
 
-            public MakePizza build()
+            public MakePizza Build()
             {
                 return new MakePizza(this);
             }
